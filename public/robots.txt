@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://saklani.dev
+
+# Sitemaps
+Sitemap: https://saklani.dev/sitemap-index.xml
