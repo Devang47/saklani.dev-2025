@@ -1,0 +1,21 @@
+{
+  "name": "DevangSaklani",
+  "short_name": "DevangSaklani",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/favicon.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#040407",
+  "background_color": "#040407",
+  "display": "standalone",
+  "description": "Devang Saklani is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences and web apps."
+}

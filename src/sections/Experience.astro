@@ -1,0 +1,30 @@
+---
+import type { JobExperience } from "../..";
+import Job from "../components/Job.astro";
+
+interface Props {
+  jobs: JobExperience[];
+}
+
+const { jobs } = Astro.props;
+---
+
+<section
+  id="experience"
+  class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
+  aria-label="Work experience"
+>
+  <div class="container mt-10 [&>p:not(:first-of-type)]:mt-4">
+    <div
+      class="sticky top-0 bg-neutral-900/60 z-20 -mx-6 mb-4 w-screen px-6 py-5 md:-mx-12 md:px-12 lg:sr-only lg:opacity-0"
+    >
+      <h2 class="font-bold tracking-widest text-neutral-200 lg:sr-only">
+        Experience
+      </h2>
+    </div>
+
+    <ul class="group/list">
+      {jobs?.map((data) => <Job data={data} />)}
+    </ul>
+  </div>
+</section>

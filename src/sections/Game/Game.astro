@@ -1,0 +1,146 @@
+---
+import Square from "./Square.astro";
+---
+
+<script>
+  import {
+    GAME_STATE,
+    SPACE_STATE,
+    calculateAITurn,
+    checkWinner,
+    gameState,
+    grid,
+    handlePlayerClick,
+    moveCount,
+    winSpaces,
+    fillGridSpace,
+    reset,
+  } from "./Ai";
+  import confetti from "canvas-confetti";
+
+  const squares = document.querySelectorAll(".square-item");
+  squares.forEach((square) => {
+    const sqIndex = square.getAttribute("data-sqindex");
+    if (!sqIndex) return;
+    console.log(sqIndex);
+    square.addEventListener("click", () => handleClick(sqIndex));
+  });
+
+  const resetBtn = document.getElementById("reset-button");
+  resetBtn?.addEventListener("click", reset);
+
+  const handleClick = (sqIndex: string) => {
+    console.log(sqIndex);
+    handlePlayerClick(Number(sqIndex));
+  };
+
+  // Whenever the game state changes
+  // from player interaction,
+  // we handle logic flow in
+  // here.
+  const handleGameStateChange = () => {
+    // Player took turn,
+    // check if game still running.
+    let winner = checkWinner(grid.get(), moveCount.get());
+
+    // If the player won, update state to reflect.
+    if (winner) {
+      gameState.set(winner.winner);
+      winSpaces.set(winner.winSpaces);
+
+      if (winner.winner === GAME_STATE.PLAYER_WON) {
+        // posthog.capture(`$$Player_Won`);
+
+        const end = Date.now() + 1 * 1000;
+        const colors = ["#bb0000", "#ffffff", "#2AB7CA", "#EEB902"];
+
+        (function frame() {
+          confetti({
+            particleCount: 4,
+            angle: 360,
+            spread: 110,
+            origin: { y: 0, x: -0.2 },
+            colors: colors,
+          });
+
+          confetti({
+            particleCount: 4,
+            angle: 180,
+            spread: 110,
+            origin: { y: 0, x: 1.2 },
+            colors: colors,
+          });
+
+          confetti({
+            particleCount: 4,
+            angle: -90,
+            spread: 55,
+            origin: { y: -0.8 },
+            colors: colors,
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      } else {
+        // posthog.capture(`$$AI_Won`);
+      }
+
+      return;
+    }
+
+    // Run AI turn
+    setTimeout(() => {
+      if (gameState.get() === GAME_STATE.AI_TURN && moveCount.get() < 10) {
+        const aiSpace = calculateAITurn(grid.get(), moveCount.get());
+        moveCount.set(moveCount.get() + 1);
+        fillGridSpace(aiSpace, SPACE_STATE.AI);
+        winner = checkWinner(grid.get(), moveCount.get());
+      }
+
+      // If AI won, update state to reflect, else
+      // go back to player turn.
+      if (winner) {
+        gameState.set(winner.winner);
+        winSpaces.set(winner.winSpaces);
+      } else {
+        gameState.set(GAME_STATE.PLAYER_TURN);
+      }
+    }, 100);
+  };
+
+  gameState.subscribe(handleGameStateChange);
+  grid.subscribe(handleGameStateChange);
+</script>
+
+<section class="game-board pt-6 pb-10">
+  <div class="max-w-md mx-auto">
+    <div class="max-w-lg flex flex-col gap-5 mx-auto">
+      <div class="flex gap-5 mx-auto">
+        <Square squareIndex={0} />
+        <Square squareIndex={1} />
+        <Square squareIndex={2} />
+      </div>
+      <div class="flex gap-5 mx-auto">
+        <Square squareIndex={3} />
+        <Square squareIndex={4} />
+        <Square squareIndex={5} />
+      </div>
+      <div class="flex gap-5 mx-auto">
+        <Square squareIndex={6} />
+        <Square squareIndex={7} />
+        <Square squareIndex={8} />
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button
+        id="reset-button"
+        class="bg-neutral-800 border text-neutral-200 tracking-wide border-neutral-700 px-4 py-1 text-[13px] font-medium mt-10 rounded shadow-lg"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+</section>

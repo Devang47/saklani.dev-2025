@@ -6,6 +6,19 @@ import Readcv from "../icons/readcv.astro";
 import Twitter from "../icons/twitter.astro";
 import Upwork from "../icons/upwork.astro";
 
+interface Props {
+  title: string;
+  subtitle: string;
+  description: string;
+
+  gmailLink: string;
+  githubLink: string;
+  linkedinLink: string;
+  resumeLink: string;
+  twitterLink: string;
+  upworkLink: string;
+}
+
 const {
   title,
   subtitle,

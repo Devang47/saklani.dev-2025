@@ -1,0 +1,29 @@
+---
+import type { IBlog } from "../..";
+import Blog from "../components/Blog.astro";
+
+interface Props {
+  blogs: IBlog[];
+}
+
+const { blogs } = Astro.props;
+---
+
+<section
+  id="writing"
+  class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
+  aria-label="Blog posts"
+>
+  <div
+    class="sticky top-0 bg-neutral-900/60 z-20 -mx-6 mb-4 w-screen px-6 py-5 md:-mx-12 md:px-12 lg:sr-only lg:opacity-0"
+  >
+    <h2 class="font-bold tracking-widest text-neutral-200 lg:sr-only">
+      Writing
+    </h2>
+  </div>
+  <div>
+    <ul class="group/list">
+      {blogs?.map((data, i) => <Blog data={data} />)}
+    </ul>
+  </div>
+</section>

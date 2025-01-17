@@ -1,0 +1,24 @@
+---
+const { data } = Astro.props;
+---
+
+<section
+  id="about"
+  aria-label="about me"
+  class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
+>
+  <div class="container">
+    <div
+      class="sticky top-0 bg-neutral-900/60 z-20 -mx-6 mb-4 w-screen px-6 py-5 md:-mx-12 md:px-12 lg:sr-only lg:opacity-0"
+    >
+      <h2 class="font-bold tracking-widest text-neutral-200 lg:sr-only">
+        About
+      </h2>
+    </div>
+
+    <div
+      class="text-[15px] [&>p:not(:first-of-type)]:mt-4 [&>p]:first-of-type:mt-6 [&>p]:first-of-type:lg:mt-0 [&_a]:underline underline-offset-2"
+      set:html={data}
+    />
+  </div>
+</section>

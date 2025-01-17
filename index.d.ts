@@ -12,7 +12,7 @@ export interface QueryResponse {
   seo: Seo;
   projects: IProject[];
   jobExperiences: JobExperience[];
-  blogs: Blog[];
+  blogs: IBlog[];
 }
 
 export interface Seo {
@@ -46,7 +46,7 @@ export interface JobExperience {
   description: string;
 }
 
-export interface Blog {
+export interface IBlog {
   id: string;
   image: Image;
   link: string;

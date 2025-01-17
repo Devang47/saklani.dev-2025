@@ -1,0 +1,35 @@
+---
+import Game from "../Game/Game.astro";
+import Clock from "./Clock.astro";
+
+const year = new Date().getFullYear();
+---
+
+<script>
+  const showHiddenGame = () => {
+    const hiddenGame = document.getElementById("hidden-game");
+    if (!hiddenGame) return;
+    hiddenGame.classList.toggle("hidden");
+  };
+
+  const trigger = document.getElementById("hidden-section-trigger");
+  trigger?.addEventListener("click", showHiddenGame);
+</script>
+
+<footer class="border-y border-neutral-800 text-xs text-neutral-500">
+  <div
+    class="flex items-center justify-between max-w-screen-xl px-6 md:px-12 lg:px-24 mx-auto py-4"
+  >
+    <div>Designed and developed by Devang.</div>
+    <div class="flex items-center gap-4">
+      <p>{year}</p>
+      <button id="hidden-section-trigger">
+        <Clock />
+      </button>
+    </div>
+  </div>
+</footer>
+
+<div id="hidden-game" class="hidden py-10 text-center text-neutral-400 text-sm">
+  <Game />
+</div>

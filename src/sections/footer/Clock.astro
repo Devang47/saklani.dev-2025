@@ -1,0 +1,59 @@
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const footerClock = document.querySelector(".footer_clock");
+    const hoverCard = document.getElementById("hoverCard");
+    if (!footerClock || !hoverCard) return;
+
+    footerClock.addEventListener(
+      "mouseenter",
+      () => (hoverCard.style.opacity = "100%")
+    );
+    footerClock.addEventListener(
+      "mouseleave",
+      () => (hoverCard.style.opacity = "0%")
+    );
+  });
+
+  const divRef: HTMLElement | null = document.querySelector(".footer_clock");
+  const currentTimeEl: HTMLElement | null =
+    document.getElementById("currentTime");
+
+  const setTime = () => {
+    if (!currentTimeEl || !divRef) return;
+
+    const str = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hourCycle: "h23",
+    });
+
+    let currentTime = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    currentTimeEl.textContent = currentTime;
+
+    divRef.style.setProperty("--now-h", str.split(":")[0]);
+    divRef.style.setProperty("--now-m", str.split(":")[1]);
+    divRef.style.setProperty("--now-s", str.split(":")[2]);
+  };
+
+  setInterval(setTime, 1000);
+</script>
+
+<div class="relative">
+  <div class="footer_clock" aria-hidden="true">
+    <div class="footer_second"></div>
+    <div class="footer_minute"></div>
+    <div class="footer_hour"></div>
+  </div>
+  <div
+    id="hoverCard"
+    class="bg-neutral-900 opacity-0 absolute whitespace-nowrap top-[-35px] right-[-10px] shadow py-1 px-2 rounded-lg border border-neutral-600 text-xs"
+  >
+    <span id="currentTime"></span> IST
+  </div>
+</div>
