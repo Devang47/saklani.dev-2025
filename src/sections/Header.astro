@@ -1,0 +1,124 @@
+---
+import Github from "../icons/github.astro";
+import Gmail from "../icons/gmail.astro";
+import Linkedin from "../icons/linkedin.astro";
+import Readcv from "../icons/readcv.astro";
+import Twitter from "../icons/twitter.astro";
+import Upwork from "../icons/upwork.astro";
+
+const {
+  title,
+  subtitle,
+  description,
+
+  gmailLink,
+  githubLink,
+  linkedinLink,
+  resumeLink,
+  twitterLink,
+  upworkLink,
+} = Astro.props;
+---
+
+<section
+  class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24"
+>
+  <div class="w-full">
+    <h1 class="text-2xl w-fit font-bold text-neutral-200 sm:text-4xl">
+      {title}
+    </h1>
+    <h3 class="mt-2 md:mt-3 font-semibold text-neutral-300 text-sm sm:text-lg">
+      {subtitle}
+    </h3>
+
+    <p class="mt-4 max-w-xs leading-normal text-neutral-400 text-[15px]">
+      {description}
+    </p>
+
+    <nav class="nav hidden lg:block" aria-label="In-page jump links">
+      <ul class="mt-24 w-max">
+        {
+          ["About", "Experience", "Projects"].map((item, i) => (
+            <li>
+              <a
+                class="group flex items-center py-3"
+                aria-label={`Jump to ${item} section`}
+                href={"#" + item.toLowerCase()}
+              >
+                <span class="nav-indicator mr-4 h-px w-8 bg-neutral-600 transition-all group-hover:w-16 group-hover:bg-neutral-200 group-focus-visible:w-16 group-focus-visible:bg-neutral-200 motion-reduce:transition-none" />
+                <span class="nav-text text-xs font-bold uppercase tracking-widest text-neutral-500 group-hover:text-neutral-200 group-focus-visible:text-neutral-200">
+                  {item}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="flex items-center gap-5 mt-8 [&>*]:p-1">
+    <a
+      target="_blank"
+      rel="noreferrer"
+      aria-label="mail me"
+      title="send a mail to devang"
+      href={gmailLink}
+    >
+      <!-- onclick={() => handleClickOnSocialLink('gmail')} -->
+      <Gmail />
+    </a>
+    <a
+      target="_blank"
+      rel="noreferrer"
+      aria-label="linkedin url"
+      title="linkedin profile url"
+      href={linkedinLink}
+    >
+      <!-- onClick={() => handleClickOnSocialLink('linkedin')} -->
+      <Linkedin />
+    </a>
+    <a
+      target="_blank"
+      rel="noreferrer"
+      aria-label="twitter url"
+      title="twitter profile url"
+      class="hidden"
+      href={twitterLink}
+    >
+      <!-- onClick={() => handleClickOnSocialLink('twitter')} -->
+      <Twitter />
+    </a>
+    <a
+      target="_blank"
+      rel="noreferrer"
+      aria-label="github url"
+      title="github profile url"
+      href={githubLink}
+    >
+      <!-- onClick={() => handleClickOnSocialLink('github')} -->
+      <Github />
+    </a>
+    <a
+      target="_blank"
+      rel="noreferrer"
+      aria-label="upwork url"
+      title="upwork profile url"
+      href={upworkLink}
+    >
+      <!-- onClick={() => handleClickOnSocialLink('upwork')} -->
+      <Upwork />
+    </a>
+    <a
+      target="_blank"
+      rel="noreferrer"
+      aria-label="readcv url"
+      class="-ml-1"
+      title="readcv profile url"
+      href={resumeLink}
+    >
+      <!-- onClick={() => handleClickOnSocialLink('resume')} -->
+      <Readcv />
+    </a>
+  </div>
+</section>

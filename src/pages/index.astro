@@ -1,11 +1,32 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import type { QueryResponse } from "../..";
+import Homepage from "../components/Homepage.astro";
+import Welcome from "../components/Welcome.astro";
+import Layout from "../layouts/Layout.astro";
+import { PAGE_CONTENT_QUERY } from "../store";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+const response = await fetch("https://graphql.datocms.com/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: `Bearer ${import.meta.env.DATOCMS_API_KEY}`,
+  },
+  body: JSON.stringify({
+    query: PAGE_CONTENT_QUERY,
+  }),
+});
+
+const json: { data: { home: QueryResponse } } = await response.json();
+const data = json.data;
 ---
 
 <Layout>
-	<Welcome />
+  <div class="">
+    <div class="blur-box"></div>
+    <Homepage data={data.home} />
+  </div>
 </Layout>

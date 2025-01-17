@@ -1,0 +1,19 @@
+.game-board {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.o-player {
+  @apply bg-neutral-700 text-white;
+}
+
+.x-player {
+  @apply bg-neutral-700 text-white;
+}
+
+.x-winner {
+  @apply bg-[#3b9aff] text-black;
+}
+
+.o-winner {
+  @apply bg-[#ff563f] text-black;
+}
