@@ -34,6 +34,8 @@ const {
 ---
 
 <script>
+  import { animate, stagger } from "motion";
+
   document.querySelectorAll(".social-link").forEach((link) => {
     link.addEventListener("click", (e: any) => {
       const type = e.target.getAttribute("data-type");
@@ -41,25 +43,79 @@ const {
       window.posthog.capture(`$social_link_click`);
     });
   });
+
+  animate(
+    ".header h1",
+    {
+      opacity: [0, 1],
+      y: [40, 0],
+    },
+    {
+      delay: 0.2,
+    }
+  );
+
+  animate(
+    ".header .subheading",
+    {
+      opacity: [0, 1],
+      y: [40, 0],
+    },
+    {
+      delay: 0.35,
+    }
+  );
+
+  animate(
+    ".header p",
+    {
+      opacity: [0, 1],
+      y: [40, 0],
+    },
+    {
+      delay: 0.5,
+    }
+  );
+
+  const stagger1 = stagger(0.1, { startDelay: 0.6 });
+  animate(
+    ".nav .nav-item",
+    {
+      opacity: [0, 1],
+      x: [-60, 0],
+    },
+    {
+      delay: stagger1,
+    }
+  );
+
+  const stagger2 = stagger(0.05, { startDelay: 0.6 });
+  animate(
+    ".social-link",
+    { opacity: [0, 1], y: [20, 0] },
+    {
+      delay: stagger2,
+    }
+  );
 </script>
 
 <section
   class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24"
 >
-  <div class="w-full">
+  <div class="w-full header">
     <h1
-      class="text-2xl w-fit font-bold text-neutral-200 print:text-black sm:text-4xl"
+      class="heading text-2xl w-fit font-bold text-neutral-200 print:text-black sm:text-4xl"
     >
       {title}
     </h1>
     <h3
-      class="mt-2 md:mt-3 font-semibold text-neutral-300 print:text-black text-sm sm:text-lg"
+      class="subheading mt-2 md:mt-3 font-semibold text-neutral-300 print:text-black text-sm sm:text-lg"
     >
       {subtitle}
     </h3>
 
     <p
-      class="mt-4 max-w-xs leading-normal text-neutral-400 print:text-black text-[15px]"
+      class="description mt-4 max-w-xs leading-normal text-neutral-400 print:text-black text-[15px]"
     >
       {description}
     </p>
@@ -68,7 +124,7 @@ const {
       <ul class="mt-24 w-max">
         {
           ["About", "Experience", "Projects"].map((item, i) => (
-            <li>
+            <li class="nav-item">
               <a
                 class="group flex items-center py-3"
                 aria-label={`Jump to ${item} section`}

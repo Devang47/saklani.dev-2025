@@ -10,6 +10,8 @@ const { jobs } = Astro.props;
 ---
 
 <script>
+  import { animate, stagger } from "motion";
+
   document.querySelectorAll(".job-item").forEach((el) => {
     el.addEventListener("click", (e: any) => {
       const title = e.currentTarget.getAttribute("data-title");
@@ -18,6 +20,26 @@ const { jobs } = Astro.props;
       });
     });
   });
+
+  animate(
+    "#experience h2",
+    {
+      opacity: [0, 1],
+      y: [40, 0],
+    },
+    {
+      delay: 0.6,
+    }
+  );
+
+  const staggerMenuItems = stagger(0.08, { startDelay: 0.6 });
+  animate(
+    "#experience .job-item-wrapper",
+    { opacity: [0, 1], y: [60, 0] },
+    {
+      delay: staggerMenuItems,
+    }
+  );
 </script>
 
 <section

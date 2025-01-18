@@ -2,6 +2,30 @@
 const { data } = Astro.props;
 ---
 
+<script>
+  import { animate, stagger } from "motion";
+
+  animate(
+    "#about h2",
+    {
+      opacity: [0, 1],
+      y: [40, 0],
+    },
+    {
+      delay: 0.6,
+    }
+  );
+
+  const staggerMenuItems = stagger(0.08, { startDelay: 0.6 });
+  animate(
+    "#about p",
+    { opacity: [0, 1], y: [40, 0] },
+    {
+      delay: staggerMenuItems,
+    }
+  );
+</script>
+
 <section
   id="about"
   aria-label="about me"

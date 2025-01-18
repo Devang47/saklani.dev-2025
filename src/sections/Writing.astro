@@ -9,6 +9,23 @@ interface Props {
 const { blogs } = Astro.props;
 ---
 
+<script>
+  import { animate, inView } from "motion";
+
+  inView("#writing li", (info) => {
+    animate(
+      info.target,
+      {
+        y: [60, 0],
+        opacity: 1,
+      },
+      {
+        duration: 0.4,
+      }
+    );
+  });
+</script>
+
 <section
   id="writing"
   class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"

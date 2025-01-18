@@ -10,6 +10,8 @@ const { projects } = Astro.props;
 ---
 
 <script>
+  import { animate, inView } from "motion";
+
   document.querySelectorAll(".project-item").forEach((el) => {
     el.addEventListener("click", (e: any) => {
       const title = e.currentTarget.getAttribute("data-title");
@@ -18,6 +20,22 @@ const { projects } = Astro.props;
       });
     });
   });
+
+  inView(
+    "#projects .project-item-wrapper, #projects .all-projects-link",
+    (info) => {
+      animate(
+        info.target,
+        {
+          y: [60, 0],
+          opacity: 1,
+        },
+        {
+          duration: 0.4,
+        }
+      );
+    }
+  );
 </script>
 
 <section
@@ -40,7 +58,7 @@ const { projects } = Astro.props;
 
     <div class="mt-12">
       <a
-        class="inline-flex items-center font-medium text-sm leading-tight text-neutral-400 hover:text-neutral-200 group"
+        class="all-projects-link inline-flex items-center font-medium text-sm leading-tight text-neutral-400 hover:text-neutral-200 group"
         aria-label="View Full Project Archive"
         href="https://github.com/Devang47?tab=repositories"
         target="_blank"
