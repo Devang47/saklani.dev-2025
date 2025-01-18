@@ -18,8 +18,8 @@ const { data } = Astro.props;
     </div>
 
     <header
-      class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-500 sm:col-span-2"
-      aria-label="2018 to Present"
+      class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-400/80 sm:col-span-2"
+      aria-label={data.startingAndEndingYear}
     >
       {data.startingAndEndingYear}
     </header>
@@ -54,7 +54,7 @@ const { data } = Astro.props;
             </span>
           </a>
         </div>
-        <div class="text-neutral-500 text-sm mt-1" aria-hidden="true">
+        <div class="text-neutral-400/80 text-sm mt-1" aria-hidden="true">
           {data.role}
         </div>
       </h3>

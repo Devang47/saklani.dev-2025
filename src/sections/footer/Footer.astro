@@ -17,16 +17,16 @@ const year = new Date().getFullYear();
   trigger?.addEventListener("click", showHiddenGame);
 </script>
 
-<footer class="border-y border-neutral-800 text-xs text-neutral-500">
+<footer class="border-y border-neutral-800 text-xs text-neutral-400/80">
   <div
     class="flex items-center justify-between max-w-screen-xl px-6 md:px-12 lg:px-24 mx-auto py-4"
   >
     <div>Designed and developed by Devang.</div>
     <div class="flex items-center gap-4">
       <p>{year}</p>
-      <button id="hidden-section-trigger" class="print:hidden">
+      <div id="hidden-section-trigger" class="print:hidden cursor-pointer">
         <Clock />
-      </button>
+      </div>
     </div>
   </div>
 </footer>

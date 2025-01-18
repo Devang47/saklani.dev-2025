@@ -1,19 +1,4 @@
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const footerClock = document.querySelector(".footer_clock");
-    const hoverCard = document.getElementById("hoverCard");
-    if (!footerClock || !hoverCard) return;
-
-    footerClock.addEventListener(
-      "mouseenter",
-      () => (hoverCard.style.opacity = "100%")
-    );
-    footerClock.addEventListener(
-      "mouseleave",
-      () => (hoverCard.style.opacity = "0%")
-    );
-  });
-
   const divRef: HTMLElement | null = document.querySelector(".footer_clock");
   const currentTimeEl: HTMLElement | null =
     document.getElementById("currentTime");
@@ -44,7 +29,7 @@
   setInterval(setTime, 1000);
 </script>
 
-<div class="relative">
+<div class="relative group">
   <div class="footer_clock" aria-hidden="true">
     <div class="footer_second"></div>
     <div class="footer_minute"></div>
@@ -52,7 +37,7 @@
   </div>
   <div
     id="hoverCard"
-    class="bg-neutral-900 opacity-0 absolute whitespace-nowrap top-[-35px] right-[-10px] shadow py-1 px-2 rounded-lg border border-neutral-600 text-xs"
+    class="bg-neutral-900 group-hover:opacity-100 duration-100 opacity-0 absolute whitespace-nowrap top-[-35px] right-[-10px] shadow py-1 px-2 rounded-lg border border-neutral-600 text-xs text-neutral-400"
   >
     <span id="currentTime"></span> IST
   </div>

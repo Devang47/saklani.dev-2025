@@ -50,7 +50,7 @@ body {
   --minutes-deg: calc(((var(--now-m) / 60) * 360) + ((var(--now-s) / 60) * 6));
   --hours-deg: calc(((var(--now-h) / 12) * 360) + ((var(--now-m) / 60) * 30));
   --width: 1px;
-  --color: rgb(115 115 115);
+  --color: rgb(163 163 163 / 0.8);
 
   width: 20px;
   height: 20px;
