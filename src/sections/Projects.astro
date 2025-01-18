@@ -9,6 +9,17 @@ interface Props {
 const { projects } = Astro.props;
 ---
 
+<script>
+  document.querySelectorAll(".project-item").forEach((el) => {
+    el.addEventListener("click", (e: any) => {
+      const title = e.currentTarget.getAttribute("data-title");
+      window.posthog.capture("$project_click", {
+        project_title: title,
+      });
+    });
+  });
+</script>
+
 <section
   id="projects"
   class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"

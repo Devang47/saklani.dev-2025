@@ -10,6 +10,7 @@ const year = new Date().getFullYear();
     const hiddenGame = document.getElementById("hidden-game");
     if (!hiddenGame) return;
     hiddenGame.classList.toggle("hidden");
+    window.posthog.capture(`$$open_hidden_game`);
   };
 
   const trigger = document.getElementById("hidden-section-trigger");
@@ -23,13 +24,16 @@ const year = new Date().getFullYear();
     <div>Designed and developed by Devang.</div>
     <div class="flex items-center gap-4">
       <p>{year}</p>
-      <button id="hidden-section-trigger">
+      <button id="hidden-section-trigger" class="print:hidden">
         <Clock />
       </button>
     </div>
   </div>
 </footer>
 
-<div id="hidden-game" class="hidden py-10 text-center text-neutral-400 text-sm">
+<div
+  id="hidden-game"
+  class="hidden print:hidden py-10 text-center text-neutral-400 text-sm"
+>
   <Game />
 </div>

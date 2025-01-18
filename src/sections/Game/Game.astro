@@ -22,7 +22,6 @@ import Square from "./Square.astro";
   squares.forEach((square) => {
     const sqIndex = square.getAttribute("data-sqindex");
     if (!sqIndex) return;
-    console.log(sqIndex);
     square.addEventListener("click", () => handleClick(sqIndex));
   });
 
@@ -30,7 +29,6 @@ import Square from "./Square.astro";
   resetBtn?.addEventListener("click", reset);
 
   const handleClick = (sqIndex: string) => {
-    console.log(sqIndex);
     handlePlayerClick(Number(sqIndex));
   };
 
@@ -49,7 +47,7 @@ import Square from "./Square.astro";
       winSpaces.set(winner.winSpaces);
 
       if (winner.winner === GAME_STATE.PLAYER_WON) {
-        // posthog.capture(`$$Player_Won`);
+        window.posthog.capture(`$$Player_Won`);
 
         const end = Date.now() + 1 * 1000;
         const colors = ["#bb0000", "#ffffff", "#2AB7CA", "#EEB902"];
@@ -83,8 +81,6 @@ import Square from "./Square.astro";
             requestAnimationFrame(frame);
           }
         })();
-      } else {
-        // posthog.capture(`$$AI_Won`);
       }
 
       return;
@@ -104,6 +100,8 @@ import Square from "./Square.astro";
       if (winner) {
         gameState.set(winner.winner);
         winSpaces.set(winner.winSpaces);
+        window.posthog.capture(`$$AI_Won`);
+        console.log("AI WON");
       } else {
         gameState.set(GAME_STATE.PLAYER_TURN);
       }

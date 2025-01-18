@@ -27,8 +27,9 @@ const { data } = Astro.props;
       <h3 class="font-medium leading-snug text-neutral-200">
         <div>
           <a
-            class="inline-flex items-baseline font-medium leading-tight text-neutral-200 hover:text-scooter-300 focus-visible:text-scooter-300 group/link text-base"
+            class="job-item inline-flex items-baseline font-medium leading-tight text-neutral-200 hover:text-scooter-300 focus-visible:text-scooter-300 group/link text-base"
             href={data.link}
+            data-title={data.title}
             target="_blank"
             rel="noreferrer noopener"
             aria-label="Lead Engineer at Upstatement (opens in a new tab)"

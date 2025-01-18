@@ -1,4 +1,5 @@
 ---
+import Posthog from "../components/Posthog.astro";
 import "../css/global.scss";
 
 const metadata = {
@@ -33,7 +34,7 @@ const metadata = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -57,18 +58,10 @@ const metadata = {
     <meta name="twitter:image" content={metadata.twitter.images.url} />
     {metadata.icons.map((icon, index) => <link rel="icon" href={icon.url} />)}
     <link rel="manifest" href="https://saklani.dev/manifest.webmanifest" />
+    <Posthog />
   </head>
 
   <body class="leading-relaxed antialiased selection:bg-white/10">
     <slot />
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

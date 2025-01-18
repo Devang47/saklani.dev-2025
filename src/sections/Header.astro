@@ -33,18 +33,34 @@ const {
 } = Astro.props;
 ---
 
+<script>
+  document.querySelectorAll(".social-link").forEach((link) => {
+    link.addEventListener("click", (e: any) => {
+      const type = e.target.getAttribute("data-type");
+      window.posthog.capture(`$${type}_click`);
+      window.posthog.capture(`$social_link_click`);
+    });
+  });
+</script>
+
 <section
   class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24"
 >
   <div class="w-full">
-    <h1 class="text-2xl w-fit font-bold text-neutral-200 sm:text-4xl">
+    <h1
+      class="text-2xl w-fit font-bold text-neutral-200 print:text-black sm:text-4xl"
+    >
       {title}
     </h1>
-    <h3 class="mt-2 md:mt-3 font-semibold text-neutral-300 text-sm sm:text-lg">
+    <h3
+      class="mt-2 md:mt-3 font-semibold text-neutral-300 print:text-black text-sm sm:text-lg"
+    >
       {subtitle}
     </h3>
 
-    <p class="mt-4 max-w-xs leading-normal text-neutral-400 text-[15px]">
+    <p
+      class="mt-4 max-w-xs leading-normal text-neutral-400 print:text-black text-[15px]"
+    >
       {description}
     </p>
 
@@ -73,64 +89,70 @@ const {
   <div class="flex items-center gap-5 mt-8 [&>*]:p-1">
     <a
       target="_blank"
+      class="social-link"
       rel="noreferrer"
       aria-label="mail me"
       title="send a mail to devang"
       href={gmailLink}
+      data-type="gmail"
     >
-      <!-- onclick={() => handleClickOnSocialLink('gmail')} -->
       <Gmail />
     </a>
     <a
       target="_blank"
+      class="social-link"
       rel="noreferrer"
       aria-label="linkedin url"
       title="linkedin profile url"
       href={linkedinLink}
+      data-type="linkedin"
     >
-      <!-- onClick={() => handleClickOnSocialLink('linkedin')} -->
       <Linkedin />
     </a>
-    <a
+    <!-- <a
       target="_blank"
+      class="social-link"
       rel="noreferrer"
       aria-label="twitter url"
       title="twitter profile url"
       class="hidden"
       href={twitterLink}
+      data-type="twitter"
     >
-      <!-- onClick={() => handleClickOnSocialLink('twitter')} -->
       <Twitter />
-    </a>
+    </a> -->
     <a
       target="_blank"
+      class="social-link"
       rel="noreferrer"
       aria-label="github url"
       title="github profile url"
       href={githubLink}
+      data-type="github"
     >
-      <!-- onClick={() => handleClickOnSocialLink('github')} -->
       <Github />
     </a>
     <a
       target="_blank"
+      class="social-link"
       rel="noreferrer"
       aria-label="upwork url"
       title="upwork profile url"
       href={upworkLink}
+      data-type="upwork"
     >
-      <!-- onClick={() => handleClickOnSocialLink('upwork')} -->
       <Upwork />
     </a>
     <a
       target="_blank"
+      class="social-link"
       rel="noreferrer"
       aria-label="readcv url"
       class="-ml-1"
       title="readcv profile url"
       href={resumeLink}
+      data-type="resume"
     >
-      <!-- onClick={() => handleClickOnSocialLink('resume')} -->
       <Readcv />
     </a>
   </div>

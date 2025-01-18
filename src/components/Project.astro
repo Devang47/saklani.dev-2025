@@ -20,8 +20,9 @@ const { data } = Astro.props;
     <div class="z-10 sm:order-2 sm:col-span-6">
       <h3>
         <a
-          class="inline-flex items-baseline font-medium leading-tight text-neutral-200 hover:text-scooter-300 focus-visible:text-scooter-300 group/link text-base"
+          class="project-item inline-flex items-baseline font-medium leading-tight text-neutral-200 hover:text-scooter-300 focus-visible:text-scooter-300 group/link text-base"
           href={data.link}
+          data-title={data.title}
           target="_blank"
           rel="noreferrer noopener"
           aria-label="Build a Spotify Connected App (opens in a new tab)"
