@@ -27,6 +27,8 @@ const data = json.data.home;
 ---
 
 <script>
+  import { animate } from "motion";
+
   const addObserver = () => {
     const navEl = document.querySelector(".nav");
     if (!navEl || window.innerWidth < 1024) return;
@@ -61,6 +63,10 @@ const data = json.data.home;
   };
 
   addObserver();
+
+  animate("body", {
+    opacity: 1,
+  });
 </script>
 
 <Layout>
