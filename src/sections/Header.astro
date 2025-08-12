@@ -35,7 +35,7 @@ const {
 ---
 
 <script>
-  import { animate, stagger } from "motion";
+  import { scrambleAndReveal } from "../utils";
 
   document.querySelectorAll(".social-link").forEach((link) => {
     link.addEventListener("click", (e: any) => {
@@ -45,66 +45,16 @@ const {
     });
   });
 
-  animate(
-    ".header h1",
-    {
-      opacity: [0, 1],
-      y: [40, 0],
-    },
-    {
-      delay: 0.2,
-    }
-  );
-
-  animate(
-    ".header .subheading",
-    {
-      opacity: [0, 1],
-      y: [40, 0],
-    },
-    {
-      delay: 0.35,
-    }
-  );
-
-  animate(
-    ".header p",
-    {
-      opacity: [0, 1],
-      y: [40, 0],
-    },
-    {
-      delay: 0.5,
-    }
-  );
-
-  const stagger1 = stagger(0.1, { startDelay: 0.6 });
-  animate(
-    ".nav .nav-item",
-    {
-      opacity: [0, 1],
-      x: [-60, 0],
-    },
-    {
-      delay: stagger1,
-    }
-  );
-
-  const stagger2 = stagger(0.05, { startDelay: 0.6 });
-  animate(
-    ".social-link",
-    { opacity: [0, 1], y: [20, 0] },
-    {
-      delay: stagger2,
-    }
-  );
+  const nameRef = document.getElementById("title");
+  scrambleAndReveal(nameRef as HTMLElement);
 </script>
 
 <section
-  class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24"
+  class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between py-32 lg:py-24"
 >
   <div class="w-full header">
     <h1
+      id="title"
       class="heading text-2xl w-fit font-bold text-neutral-200 print:text-black sm:text-4xl"
     >
       {title}
