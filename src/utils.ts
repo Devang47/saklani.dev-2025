@@ -22,7 +22,7 @@ export function scrambleAndReveal(element: HTMLElement): void {
   element.innerHTML = scrambledChars.join("");
 
   let lastUpdateTime = 0;
-  const updateInterval = 40;
+  const updateInterval = 50;
 
   animate(
     { progress: 0 },
@@ -31,7 +31,7 @@ export function scrambleAndReveal(element: HTMLElement): void {
     },
     {
       duration: 1,
-      ease: "easeInOut",
+      ease: "linear",
       onUpdate: (progress: number) => {
         console.log(progress);
         const currentTime = Date.now();

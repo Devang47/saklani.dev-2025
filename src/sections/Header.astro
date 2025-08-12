@@ -45,17 +45,19 @@ const {
     });
   });
 
-  const nameRef = document.getElementById("title");
-  scrambleAndReveal(nameRef as HTMLElement);
+  window.addEventListener("load", () => {
+    const nameRef = document.getElementById("title");
+    scrambleAndReveal(nameRef as HTMLElement);
+  });
 </script>
 
 <section
-  class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between py-32 lg:py-24"
+  class="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between pt-32 pb-20 md:py-24"
 >
   <div class="w-full header">
     <h1
       id="title"
-      class="heading text-2xl w-fit font-bold text-neutral-200 print:text-black sm:text-4xl"
+      class="heading text-3xl w-fit font-bold text-neutral-100 print:text-black sm:text-4xl"
     >
       {title}
     </h1>
