@@ -22,11 +22,12 @@ body {
 }
 
 .active .nav-indicator {
-  @apply bg-neutral-200 w-16;
+  width: 4rem;
+  background-color: var(--nav-accent, #e5e5e5);
 }
 
 .active .nav-text {
-  @apply text-neutral-200;
+  color: var(--nav-accent, #e5e5e5);
 }
 
 @font-face {
@@ -133,4 +134,151 @@ body {
   margin-top: calc(-1 * var(--h));
   bottom: 0;
   --direction: to top;
+}
+
+/* ── Design system ─────────────────────────────────────────────
+   Motion curves + a curated accent spectrum used sparingly as
+   per-section highlights. The canvas stays dark; color lives only
+   in small cues (nav dashes, pills, underlines, focus rings). */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --accent-about: #7ddae3; /* cyan   (scooter-300) */
+  --accent-experience: #a78bfa; /* violet */
+  --accent-projects: #fbbf24; /* amber  */
+  --accent-writing: #f472b6; /* pink   */
+}
+
+/* Brand-tinted text selection */
+::selection {
+  background-color: rgb(65 192 207 / 0.28);
+  color: #fff;
+}
+
+/* Visible, on-brand focus ring for keyboard users only */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-about);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Pressable feedback — the UI should feel like it heard the click.
+   Hover-capable pointers only, so touch taps don't stick scaled. */
+.pressable {
+  transition: transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pressable:active {
+    transform: scale(0.94);
+  }
+}
+
+/* Live "available" status dot — gentle pulse, stilled for reduced motion */
+.status-dot {
+  position: relative;
+}
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: inherit;
+  animation: status-ping 2s var(--ease-out) infinite;
+}
+@keyframes status-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .status-dot::after {
+    animation: none;
+  }
+}
+
+/* Soft cyan→violet aurora behind the hero — static depth, no motion */
+.aurora {
+  position: fixed;
+  top: -12%;
+  left: -6%;
+  width: 45rem;
+  height: 45rem;
+  max-width: 90vw;
+  pointer-events: none;
+  z-index: -10;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 32% 30%,
+    rgb(65 192 207 / 0.18),
+    rgb(139 125 255 / 0.12) 45%,
+    transparent 70%
+  );
+  filter: blur(64px);
+}
+
+/* Fine film grain for depth — very low opacity, never intercepts clicks */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Cursor-follow spotlight layer on cards (desktop, hover pointers only) */
+.spotlight {
+  background: radial-gradient(
+    18rem circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    var(--spot-color, rgb(255 255 255 / 0.08)),
+    transparent 70%
+  );
+}
+
+/* First-view staggered reveal of the content column.
+   Base state is fully visible — the animation only ever plays *toward*
+   visible, so content is never trapped hidden (no JS, no dependency). */
+@media (prefers-reduced-motion: no-preference) {
+  #content > section {
+    animation: reveal 0.55s var(--ease-out) both;
+  }
+  #content > section:nth-child(1) {
+    animation-delay: 0.04s;
+  }
+  #content > section:nth-child(2) {
+    animation-delay: 0.11s;
+  }
+  #content > section:nth-child(3) {
+    animation-delay: 0.18s;
+  }
+  #content > section:nth-child(4) {
+    animation-delay: 0.25s;
+  }
+  #content > section:nth-child(5) {
+    animation-delay: 0.32s;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }

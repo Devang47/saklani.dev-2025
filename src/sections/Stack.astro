@@ -1,0 +1,57 @@
+---
+import type { IProject, JobExperience } from "../..";
+
+interface Props {
+  jobs: JobExperience[];
+  projects: IProject[];
+}
+
+const { jobs, projects } = Astro.props;
+
+// Build a toolkit from the tech already recorded on every job and project in
+// the CMS — no hardcoded/invented skill list. Rank by how often each shows up
+// so the core stack surfaces, and cap it so the section stays minimal.
+const MAX_ITEMS = 18;
+const raw = [
+  ...(jobs ?? []).flatMap((j) => j.techUsed?.split(" ") ?? []),
+  ...(projects ?? []).flatMap((p) => p.techUsed?.split(" ") ?? []),
+];
+
+const counts = new Map<string, number>();
+for (const t of raw) {
+  const key = t.trim();
+  if (!key) continue;
+  counts.set(key, (counts.get(key) ?? 0) + 1);
+}
+
+const tech = [...counts.entries()]
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  .slice(0, MAX_ITEMS)
+  .map(([name]) => name)
+  .sort((a, b) => a.localeCompare(b));
+---
+
+{
+  tech.length > 0 && (
+    <section
+      id="stack"
+      aria-label="Tech I work with"
+      class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
+    >
+      <div class="container">
+        <h2 class="mb-4 text-xs font-bold uppercase tracking-widest text-neutral-400/80">
+          Toolkit
+        </h2>
+        <ul class="flex flex-wrap gap-2" aria-label="Technologies">
+          {tech.map((t) => (
+            <li>
+              <span class="inline-flex rounded-full border border-neutral-700/60 bg-neutral-800/40 px-3 py-1 text-xs font-medium text-neutral-300 transition-colors hover:border-scooter-400/50 hover:text-scooter-200 motion-reduce:transition-none">
+                {t}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}

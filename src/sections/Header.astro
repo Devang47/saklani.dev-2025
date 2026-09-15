@@ -30,6 +30,14 @@ const {
   twitterLink,
   upworkLink,
 } = Astro.props;
+
+// Each in-page section carries its own accent hue, surfaced only in the
+// nav dash + label on hover/active. Colorful rhythm, minimal footprint.
+const navItems = [
+  { label: "About", accent: "var(--accent-about)" },
+  { label: "Experience", accent: "var(--accent-experience)" },
+  { label: "Projects", accent: "var(--accent-projects)" },
+];
 ---
 
 <script>
@@ -55,35 +63,43 @@ const {
   <div class="w-full header">
     <h1
       id="title"
-      class="heading text-3xl w-fit font-bold text-neutral-100 print:text-black sm:text-4xl"
+      class="heading w-fit text-4xl font-bold tracking-tight text-balance bg-gradient-to-r from-scooter-300 via-blue-400 to-violet-400 bg-clip-text text-transparent print:bg-none print:text-black sm:text-5xl"
     >
       {title}
     </h1>
     <h3
-      class="subheading mt-2 md:mt-3 font-semibold text-neutral-300 print:text-black text-sm sm:text-lg"
+      class="subheading mt-3 md:mt-4 font-semibold text-neutral-300 print:text-black text-sm sm:text-lg"
     >
       {subtitle}
     </h3>
 
     <p
-      class="description mt-4 max-w-xs leading-normal text-neutral-400 print:text-black text-[15px]"
+      class="description mt-4 max-w-xs leading-normal text-neutral-400 print:text-black text-pretty text-[15px]"
     >
       {description}
     </p>
 
+    <div
+      class="mt-5 inline-flex items-center gap-2 rounded-full border border-neutral-700/60 bg-neutral-800/30 px-3 py-1 text-xs font-medium text-neutral-300 print:hidden"
+    >
+      <span class="status-dot h-2 w-2 rounded-full bg-mantis-400"></span>
+      Available for work
+    </div>
+
     <nav class="nav hidden lg:block" aria-label="In-page jump links">
-      <ul class="mt-24 w-max">
+      <ul class="mt-20 w-max">
         {
-          ["About", "Experience", "Projects"].map((item, i) => (
+          navItems.map((item) => (
             <li class="nav-item">
               <a
                 class="group flex items-center py-3"
-                aria-label={`Jump to ${item} section`}
-                href={"#" + item.toLowerCase()}
+                style={`--nav-accent:${item.accent}`}
+                aria-label={`Jump to ${item.label} section`}
+                href={"#" + item.label.toLowerCase()}
               >
-                <span class="nav-indicator mr-4 h-px w-8 bg-neutral-600 transition-all group-hover:w-16 group-hover:bg-neutral-200 group-focus-visible:w-16 group-focus-visible:bg-neutral-200 motion-reduce:transition-none" />
-                <span class="nav-text text-xs font-bold uppercase tracking-widest text-neutral-400/80 group-hover:text-neutral-200 group-focus-visible:text-neutral-200">
-                  {item}
+                <span class="nav-indicator mr-4 h-px w-8 bg-neutral-600 transition-all group-hover:w-16 group-hover:bg-[var(--nav-accent)] group-focus-visible:w-16 group-focus-visible:bg-[var(--nav-accent)] motion-reduce:transition-none" />
+                <span class="nav-text text-xs font-bold uppercase tracking-widest text-neutral-400/80 transition-colors group-hover:text-[var(--nav-accent)] group-focus-visible:text-[var(--nav-accent)] motion-reduce:transition-none">
+                  {item.label}
                 </span>
               </a>
             </li>
@@ -96,7 +112,7 @@ const {
   <div class="flex items-center gap-5 mt-8 [&>*]:p-1">
     <a
       target="_blank"
-      class="social-link"
+      class="social-link pressable"
       rel="noreferrer"
       aria-label="send a mail to devang"
       title="send a mail to devang"
@@ -107,7 +123,7 @@ const {
     </a>
     <a
       target="_blank"
-      class="social-link"
+      class="social-link pressable"
       rel="noreferrer"
       aria-label="linkedin profile url"
       title="linkedin profile url"
@@ -118,7 +134,7 @@ const {
     </a>
     <a
       target="_blank"
-      class="social-link"
+      class="social-link pressable"
       rel="noreferrer"
       aria-label="github of devang"
       title="github of devang"
@@ -129,7 +145,7 @@ const {
     </a>
     <a
       target="_blank"
-      class="social-link"
+      class="social-link pressable"
       rel="noreferrer"
       aria-label="upwork profile of devang"
       title="upwork profile of devang"
@@ -140,10 +156,9 @@ const {
     </a>
     <a
       target="_blank"
-      class="social-link"
+      class="social-link pressable -ml-1"
       rel="noreferrer"
       aria-label="resume of devang"
-      class="-ml-1"
       title="resume of devang"
       href={resumeLink}
       data-type="resume"

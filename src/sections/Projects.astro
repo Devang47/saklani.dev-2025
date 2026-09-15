@@ -35,7 +35,7 @@ const { projects } = Astro.props;
     </div>
 
     <ul class="group/list">
-      {projects?.map((data) => <Project data={data} />)}
+      {projects?.map((data, i) => <Project data={data} featured={i === 0} />)}
     </ul>
 
     <div class="mt-12">

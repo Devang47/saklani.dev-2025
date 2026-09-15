@@ -5,6 +5,7 @@ import { PAGE_CONTENT_QUERY } from "../store";
 
 import Header from "../sections/Header.astro";
 import About from "../sections/About.astro";
+import Stack from "../sections/Stack.astro";
 import Experience from "../sections/Experience.astro";
 import Projects from "../sections/Projects.astro";
 import Writing from "../sections/Writing.astro";
@@ -78,11 +79,28 @@ const data = json.data.home;
   };
 
   addObserver();
+
+  // Cursor-follow spotlight on cards — desktop hover pointers only.
+  const enableSpotlight = window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  ).matches;
+  if (enableSpotlight) {
+    document
+      .querySelectorAll<HTMLElement>(".spotlight-card")
+      .forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
+          card.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
+        });
+      });
+  }
 </script>
 
 <Layout>
   <div class="">
     <div class="blur-box"></div>
+    <div class="aurora" aria-hidden="true"></div>
     <div
       class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-0"
     >
@@ -107,6 +125,7 @@ const data = json.data.home;
         />
         <main id="content" class="pt-20 md:pt-24 lg:w-1/2 lg:py-24">
           <About data={data.about} />
+          <Stack jobs={data.jobExperiences} projects={data.projects} />
           <Experience jobs={data.jobExperiences} />
           <Projects projects={data.projects} />
           <Writing blogs={data.blogs} />

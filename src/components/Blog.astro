@@ -11,10 +11,16 @@ const { data } = Astro.props;
 
 <li class="mb-12">
   <div
-    class="group relative grid grid-cols-8 gap-4 transition-all sm:items-center sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50"
+    class="spotlight-card group relative grid grid-cols-8 gap-4 transition-all sm:items-center sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50"
   >
     <div
       class="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-neutral-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"
+    >
+    </div>
+    <div
+      class="spotlight pointer-events-none absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md opacity-0 transition-opacity duration-300 motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:opacity-100"
+      style="--spot-color: rgb(244 114 182 / 0.10)"
+      aria-hidden="true"
     >
     </div>
 
@@ -27,7 +33,7 @@ const { data } = Astro.props;
     />
 
     <div class="z-10 col-span-6">
-      <p class="-mt-1 text-sm font-semibold leading-6">{data.year}</p>
+      <p class="-mt-1 text-sm font-semibold leading-6 tabular-nums">{data.year}</p>
       <h3 class="-mt-1">
         <a
           class="inline-flex items-baseline font-medium leading-tight text-neutral-200 hover:text-scooter-300 focus-visible:text-scooter-300 group/link text-base"
