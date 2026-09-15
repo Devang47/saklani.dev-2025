@@ -13,6 +13,22 @@ compound") and the `better-*` disciplines (color, typography, layout, UI polish,
 
 ---
 
+## Implementation status
+
+All four tiers were implemented on the `design-overhaul` branch (build verified each phase):
+
+- ✅ **P1** — color tokens + per-section accent hues, easing tokens, `:active`/focus/selection
+  polish, gradient hero name, status pill, type scale (`text-balance`, `tabular-nums`).
+- ✅ **P2** — aurora glow, film-grain overlay, cursor-follow card spotlight (per-section tint),
+  featured project card.
+- ✅ **P3** — first-view staggered reveal (reduced-motion gated, never hides content), 404
+  personality. **Deferred:** View Transitions (script re-init risk for a 2-page site).
+- ✅ **P4** — a "Toolkit" section derived from real CMS tech data (frequency-ranked, capped at 18).
+  **Deferred (CMS/content, not code):** impact-oriented experience bullets, case studies,
+  positioning line, testimonials — these live in DatoCMS.
+
+---
+
 ## 1. Color system — the "colorful but minimal" core
 
 Today: near-black `#131313` + one cyan accent (`scooter`). `mantis` green is defined but unused.
