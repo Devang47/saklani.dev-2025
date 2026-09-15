@@ -208,3 +208,42 @@ button:focus-visible,
     animation: none;
   }
 }
+
+/* Soft cyan→violet aurora behind the hero — static depth, no motion */
+.aurora {
+  position: fixed;
+  top: -12%;
+  left: -6%;
+  width: 45rem;
+  height: 45rem;
+  max-width: 90vw;
+  pointer-events: none;
+  z-index: -10;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 32% 30%,
+    rgb(65 192 207 / 0.18),
+    rgb(139 125 255 / 0.12) 45%,
+    transparent 70%
+  );
+  filter: blur(64px);
+}
+
+/* Fine film grain for depth — very low opacity, never intercepts clicks */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Cursor-follow spotlight layer on cards (desktop, hover pointers only) */
+.spotlight {
+  background: radial-gradient(
+    18rem circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    var(--spot-color, rgb(255 255 255 / 0.08)),
+    transparent 70%
+  );
+}
