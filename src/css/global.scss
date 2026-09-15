@@ -247,3 +247,35 @@ button:focus-visible,
     transparent 70%
   );
 }
+
+/* First-view staggered reveal of the content column.
+   Base state is fully visible — the animation only ever plays *toward*
+   visible, so content is never trapped hidden (no JS, no dependency). */
+@media (prefers-reduced-motion: no-preference) {
+  #content > section {
+    animation: reveal 0.55s var(--ease-out) both;
+  }
+  #content > section:nth-child(1) {
+    animation-delay: 0.04s;
+  }
+  #content > section:nth-child(2) {
+    animation-delay: 0.11s;
+  }
+  #content > section:nth-child(3) {
+    animation-delay: 0.18s;
+  }
+  #content > section:nth-child(4) {
+    animation-delay: 0.25s;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
