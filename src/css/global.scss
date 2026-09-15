@@ -22,11 +22,12 @@ body {
 }
 
 .active .nav-indicator {
-  @apply bg-neutral-200 w-16;
+  width: 4rem;
+  background-color: var(--nav-accent, #e5e5e5);
 }
 
 .active .nav-text {
-  @apply text-neutral-200;
+  color: var(--nav-accent, #e5e5e5);
 }
 
 @font-face {
@@ -133,4 +134,77 @@ body {
   margin-top: calc(-1 * var(--h));
   bottom: 0;
   --direction: to top;
+}
+
+/* ── Design system ─────────────────────────────────────────────
+   Motion curves + a curated accent spectrum used sparingly as
+   per-section highlights. The canvas stays dark; color lives only
+   in small cues (nav dashes, pills, underlines, focus rings). */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --accent-about: #7ddae3; /* cyan   (scooter-300) */
+  --accent-experience: #a78bfa; /* violet */
+  --accent-projects: #fbbf24; /* amber  */
+  --accent-writing: #f472b6; /* pink   */
+}
+
+/* Brand-tinted text selection */
+::selection {
+  background-color: rgb(65 192 207 / 0.28);
+  color: #fff;
+}
+
+/* Visible, on-brand focus ring for keyboard users only */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-about);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Pressable feedback — the UI should feel like it heard the click.
+   Hover-capable pointers only, so touch taps don't stick scaled. */
+.pressable {
+  transition: transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pressable:active {
+    transform: scale(0.94);
+  }
+}
+
+/* Live "available" status dot — gentle pulse, stilled for reduced motion */
+.status-dot {
+  position: relative;
+}
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: inherit;
+  animation: status-ping 2s var(--ease-out) infinite;
+}
+@keyframes status-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .status-dot::after {
+    animation: none;
+  }
 }

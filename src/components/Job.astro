@@ -18,7 +18,7 @@ const { data } = Astro.props;
     </div>
 
     <header
-      class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-400/80 sm:col-span-2"
+      class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide tabular-nums text-neutral-400/80 sm:col-span-2"
       aria-label={data.startingAndEndingYear}
     >
       {data.startingAndEndingYear}
@@ -64,7 +64,7 @@ const { data } = Astro.props;
         {
           data.techUsed.split(" ").map((data, i) => (
             <li class="mr-1.5 mt-2">
-              <div class="flex items-center rounded-full bg-scooter-400/10 px-3 py-1 text-xs font-medium leading-5 text-scooter-300 ">
+              <div class="flex items-center rounded-full bg-violet-400/10 px-3 py-1 text-xs font-medium leading-5 text-violet-300 ">
                 {data}
               </div>
             </li>
