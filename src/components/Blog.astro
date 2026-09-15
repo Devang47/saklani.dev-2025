@@ -21,9 +21,9 @@ const { data } = Astro.props;
     <Image
       alt={data.title}
       src={data.image.url}
-      width="200"
-      height="48"
-      class="z-10 col-span-2 rounded border-2 border-slate-200/10 transition group-hover:border-slate-200/30 sm:col-span-2"
+      width={400}
+      height={250}
+      class="z-10 col-span-2 aspect-[16/10] w-full rounded border-2 border-slate-200/10 object-cover transition group-hover:border-slate-200/30 sm:col-span-2"
     />
 
     <div class="z-10 col-span-6">
@@ -34,7 +34,7 @@ const { data } = Astro.props;
           href={data.link}
           target="_blank"
           rel="noreferrer noopener"
-          aria-label="Integrating Algolia Search with WordPress Multisite (opens in a new tab)"
+          aria-label={`${data.title} (opens in a new tab)`}
         >
           <span
             class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"

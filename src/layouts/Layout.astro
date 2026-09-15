@@ -2,34 +2,36 @@
 import Posthog from "../components/Posthog.astro";
 import "../css/global.scss";
 
-const metadata = {
-  title: "Devang Saklani | Software Engineer",
-  description:
-    "Devang Saklani is a experienced software engineer who specializes in building (and occasionally designing) exceptional digital experiences and web apps.",
-  openGraph: {
-    type: "website",
-    title: "Devang Saklani | Software Engineer",
-    description:
-      "Devang Saklani is a experienced software engineer who specializes in building (and occasionally designing) exceptional digital experiences and web apps.",
-    url: "https://saklani.dev",
-    images: "https://saklani.dev/og.png",
-  },
-  icons: [
-    {
-      url: "/favicon/favicon.svg",
-    },
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const defaultTitle = "Devang Saklani | Software Engineer";
+const defaultDescription =
+  "Devang Saklani is an experienced software engineer who specializes in building (and occasionally designing) exceptional digital experiences and web apps.";
+
+const {
+  title = defaultTitle,
+  description = defaultDescription,
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://saklani.dev");
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL("/og.png", siteUrl).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Devang Saklani",
+  url: siteUrl.href,
+  jobTitle: "Software Engineer",
+  sameAs: [
+    "https://github.com/Devang47",
+    "https://twitter.com/devangsaklani",
   ],
-  twitter: {
-    card: "summary_large_image",
-    site: "@devangsaklani",
-    title: "Devang Saklani | Software Engineer",
-    description:
-      "Devang Saklani is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences and web apps.",
-    images: {
-      url: "https://saklani.dev/og.png",
-      alt: "Devang Saklani | Software Engineer",
-    },
-  },
 };
 ---
 
@@ -37,31 +39,49 @@ const metadata = {
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <title>{metadata.title}</title>
-    <meta name="description" content={metadata.description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
 
-    <meta property="og:type" content={metadata.openGraph.type} />
-    <meta property="og:title" content={metadata.openGraph.title} />
-    <meta property="og:description" content={metadata.openGraph.description} />
-    <meta property="og:url" content={metadata.openGraph.url} />
-    <meta property="og:image" content={metadata.openGraph.images} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
 
-    <meta name="twitter:card" content={metadata.twitter.card} />
-    <meta name="twitter:site" content={metadata.twitter.site} />
-    <meta name="twitter:title" content={metadata.twitter.title} />
-    <meta name="twitter:description" content={metadata.twitter.description} />
-    <meta name="twitter:image" content={metadata.twitter.images.url} />
-    {metadata.icons.map((icon, index) => <link rel="icon" href={icon.url} />)}
-    <link rel="manifest" href="https://saklani.dev/manifest.webmanifest" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@devangsaklani" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <link
+      rel="preload"
+      href="/sohne.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(jsonLd)}
+    />
+
     <Posthog />
   </head>
 
-  <body class="leading-relaxed antialiased selection:bg-white/10 opacity-0">
+  <body class="leading-relaxed antialiased selection:bg-white/10">
     <slot />
   </body>
 </html>
