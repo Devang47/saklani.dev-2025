@@ -1,48 +1,85 @@
-# Astro Starter Kit: Basics
+# Portfolio — Devang Saklani
+
+Personal portfolio site for Devang Saklani, a software engineer. Content (about, experience,
+projects and writing) is managed in [DatoCMS](https://datocms.com/) and fetched at build time,
+so the deployed site is fully static.
+
+Design heavily inspired by [Brittany Chiang's portfolio](https://brittanychiang.com/).
+
+🔗 Live: [saklani.dev](https://saklani.dev)
+
+## Stack
+
+- [Astro](https://astro.build/) — static site framework
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) + [Sass](https://sass-lang.com/)
+- [DatoCMS](https://datocms.com/) — headless CMS (content source, queried via GraphQL)
+- [PostHog](https://posthog.com/) — product analytics
+- [Motion](https://motion.dev/) — animation library
+
+## Getting started
+
+Requires **Node.js 22.x** (see `.nvmrc`) and [pnpm](https://pnpm.io/).
 
 ```sh
-npm create astro@latest -- --template basics
+# 1. install pnpm if you don't have it
+npm install -g pnpm
+
+# 2. install dependencies
+pnpm install
+
+# 3. create your local env file (see "Environment variables" below)
+cp .env.example .env
+
+# 4. start the dev server at http://localhost:4321
+pnpm dev
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Environment variables
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Copy `.env.example` to `.env` and fill in the values:
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+| Variable          | Required | Used for                                         |
+| :---------------- | :------- | :----------------------------------------------- |
+| `DATOCMS_API_KEY` | Yes      | Fetching page content from DatoCMS at build time |
 
-## 🚀 Project Structure
+> Note: the PostHog analytics key/host and the production site URL are currently hardcoded
+> (in `src/components/Posthog.astro` and `astro.config.mjs`) rather than read from the other
+> variables listed in `.env.example`. Reconciling this is tracked in the improvement plan.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Commands
+
+All commands are run from the project root:
+
+| Command        | Action                                         |
+| :------------- | :--------------------------------------------- |
+| `pnpm dev`     | Start the local dev server at `localhost:4321` |
+| `pnpm build`   | Build the production site to `./dist/`         |
+| `pnpm preview` | Preview the production build locally           |
+| `pnpm astro …` | Run Astro CLI commands (`astro check`, etc.)   |
+
+## Project structure
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+public/            static assets (fonts, favicons, OG images, robots.txt)
+src/
+├── assets/        images processed by Astro
+├── components/    reusable UI (Project, Job, Blog, Posthog, Beams)
+├── css/           global styles and Sass partials
+├── icons/         inline SVG icon components
+├── layouts/       Layout.astro — the shared HTML shell + <head> metadata
+├── pages/         routes — index.astro (home) and 404.astro
+├── sections/      page sections (Header, About, Experience, Projects, Writing, Footer, Game)
+├── store.ts       the DatoCMS GraphQL query
+└── utils.ts       small client-side helpers
+index.d.ts         shared TypeScript types for the CMS response
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Content
 
-## 🧞 Commands
+Page content is defined by the `PAGE_CONTENT_QUERY` GraphQL query in `src/store.ts` and typed
+in `index.d.ts`. Update content in the DatoCMS project rather than in this repo.
 
-All commands are run from the root of the project, from a terminal:
+## Easter egg
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The clock in the footer (and the 404 page) hides a playable tic-tac-toe game against a simple AI. 🎮
