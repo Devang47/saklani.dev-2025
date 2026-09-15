@@ -1,4 +1,12 @@
-<script is:inline>
+---
+const posthogKey =
+  import.meta.env.PUBLIC_POSTHOG_KEY ??
+  "phc_47AE5VCzwvLTwo0AiYLk8RkXVvo3ocSwYI7eJV9HyzN";
+const posthogHost =
+  import.meta.env.PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
+---
+
+<script is:inline define:vars={{ posthogKey, posthogHost }}>
   !(function (t, e) {
     var o, n, p, r;
     e.__SV ||
@@ -48,9 +56,8 @@
       }),
       (e.__SV = 1));
   })(document, window.posthog || []);
-  posthog.init("phc_47AE5VCzwvLTwo0AiYLk8RkXVvo3ocSwYI7eJV9HyzN", {
-    api_host: "https://us.i.posthog.com",
+  posthog.init(posthogKey, {
+    api_host: posthogHost,
     person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
   });
-  console.log({ posthog });
 </script>

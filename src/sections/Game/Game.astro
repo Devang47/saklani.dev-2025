@@ -101,7 +101,6 @@ import Square from "./Square.astro";
         gameState.set(winner.winner);
         winSpaces.set(winner.winSpaces);
         window.posthog.capture(`$$AI_Won`);
-        console.log("AI WON");
       } else {
         gameState.set(GAME_STATE.PLAYER_TURN);
       }
